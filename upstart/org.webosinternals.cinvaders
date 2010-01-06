@@ -1,2 +1,2 @@
-chdir /media/cryptofs/apps/usr/palm/applications/org.webosinternals.classicinvaders/bin
-exec  /media/cryptofs/apps/usr/palm/applications/org.webosinternals.classicinvaders/bin/classicinvaders &
+chdir /media/cryptofs/apps/usr/palm/applications/org.webosinternals.cinvaders/bin
+exec  /media/cryptofs/apps/usr/palm/applications/org.webosinternals.cinvaders/bin/cinvaders &

@@ -1,0 +1,13 @@
+{
+       "title": "Classic Invaders",
+       "id": "org.webosinternals.classicinvaders",
+       "version": "1.0",
+       "vendor": "WebOS Internals",
+       "vendor_email": "support@webos-internals.org",
+       "type": "web",
+       "main": "index.html",
+       "icon": "icon.png",
+       "removable": "true",
+       "noWindow": true,
+       "noDeprecatedStyles": true
+}

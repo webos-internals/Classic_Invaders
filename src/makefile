@@ -1,5 +1,5 @@
 CC=${CXX}
-CFLAGS=-W -Wall -O3 `sdl-config --cflags` -I/usr/local/include
+CFLAGS=-W -Wall -O2 `sdl-config --cflags` -I/usr/local/include
 LIBS=`sdl-config --libs` -lSDL_image -lSDL_ttf -lSDL_mixer
 
 cinvaders: shot.o alien.o game.o game_entity.o main.o player.o ttf.o ui.o \

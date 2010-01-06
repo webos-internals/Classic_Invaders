@@ -376,11 +376,11 @@ namespace Game {
             
             // player attempt to fire
             if (!reloading) {
-                if (keys[SDLK_SPACE] == SDL_PRESSED) {
+                if (keys[231] == SDL_PRESSED) {
                     fire_shot();
                 }
             }
-            reloading = (keys[SDLK_SPACE] == SDL_PRESSED);
+            reloading = (keys[231] == SDL_PRESSED);
             
             
             // set player direction based on key input

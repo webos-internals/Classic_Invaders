@@ -42,6 +42,8 @@
 #include "SDL_image.h"
 #include "SDL.h"
 #include <iostream>
+
+#include <math.h>
 #include <ctime>
 #include <boost/assign/list_of.hpp>
 #include <sstream>
@@ -71,6 +73,8 @@ namespace Game {
     {
         SDL_WM_SetCaption("Classic Invaders", "");
         SDL_ShowCursor(SDL_DISABLE);
+    	SDL_JoystickEventState(SDL_ENABLE);
+    	SDL_JoystickOpen(0);
         while (1) {
             // display start screen wait for input
             player_dead = false;
@@ -343,6 +347,18 @@ namespace Game {
                 if (keys[SDLK_p]) {
                     pause();
                 }
+                if (event.type == SDL_JOYAXISMOTION) {
+                	if( event.jaxis.axis == 1) {
+                		if (event.jaxis.value == 0)
+                			player->set_x_velocity(0);
+                		else {
+                			if (event.jaxis.value>100)
+                				player->set_x_velocity((event.jaxis.value-100)/20);
+                			else if (event.jaxis.value<100)
+                				player->set_x_velocity((event.jaxis.value+100)/20);
+                		}
+                	}
+                }
             }
             
             // erase everything
@@ -384,13 +400,13 @@ namespace Game {
             
             
             // set player direction based on key input
-            player->set_x_velocity(0);
+            /*player->set_x_velocity(0);
             if (keys[SDLK_LEFT] && !keys[SDLK_RIGHT]) {
                 player->set_x_velocity(-player_speed);
             }
             if (keys[SDLK_RIGHT] && !keys[SDLK_LEFT]) {
                 player->set_x_velocity(player_speed);
-            }
+            }*/
             
             // alien behavior
             alien_fire();

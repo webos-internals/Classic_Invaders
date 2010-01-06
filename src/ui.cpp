@@ -43,7 +43,7 @@
 extern std::string datadir;
 
 namespace Ui {
-    
+
     bool compare(const score_rec& x, const score_rec& y) { return x.score > y.score; }
         
     Ui::Ui(Sound::Sound* sound, Game::Game* game, int fullscreen_flag) : 
@@ -179,137 +179,106 @@ namespace Ui {
         }
         SDL_Event event;
         Uint8* keys;
+        bool down = false;
         while (1) {
             while (SDL_PollEvent(&event)) {
+            	if (event.type == SDL_MOUSEBUTTONUP)
+            		down = true;
                 keys = SDL_GetKeyState(NULL);
-                if (current == PLAY && (keys[SDLK_DOWN] || keys[SDLK_TAB])) {
+                if (current == PLAY && down) {
                     sound->play_menu_select();
                     blit_menu_button(play, 0);
                     blit_menu_button(r_quit, 1);
                     SDL_UpdateRect(screen, left_margin_x, top_menu_y, menu_w, menu_h);
                     current = QUIT;
+                    down = false;
                     break;
                 }
-                if (current == QUIT && keys[SDLK_UP]) {
-                    sound->play_menu_select();
-                    blit_menu_button(r_play, 0);
-                    blit_menu_button(quit, 1);
-                    SDL_UpdateRect(screen, left_margin_x, top_menu_y, menu_w, menu_h);
-                    current = PLAY;
-                    break;
-                }
-                if (current == QUIT && (keys[SDLK_DOWN] || keys[SDLK_TAB])) {
+                else if (current == QUIT && down) {
                     sound->play_menu_select();
                     blit_menu_button(quit, 1);
                     blit_menu_button(r_toggle, 2);
                     SDL_UpdateRect(screen, left_margin_x, top_menu_y, menu_w, menu_h);
                     current = TOGGLE;
+                    down = false;
                     break;
                 }
-                if (current == TOGGLE && keys[SDLK_UP]) {
-                    sound->play_menu_select();
-                    blit_menu_button(r_quit, 1);
-                    blit_menu_button(toggle, 2);
-                    SDL_UpdateRect(screen, left_margin_x, top_menu_y, menu_w, menu_h);
-                    current = QUIT;
-                    break;
-                }
-                if (current == TOGGLE && (keys[SDLK_DOWN] || keys[SDLK_TAB])) {
+                else if (current == TOGGLE && down) {
                     sound->play_menu_select();
                     blit_menu_button(toggle, 2);
                     blit_menu_button(r_zap, 3);
                     SDL_UpdateRect(screen, left_margin_x, top_menu_y, menu_w, menu_h);
                     current = ZAP;
+                    down = false;
                     break;
                 }
-                if (current == ZAP && keys[SDLK_UP]) {
-                    sound->play_menu_select();
-                    blit_menu_button(r_toggle, 2);
-                    blit_menu_button(zap, 3);
-                    SDL_UpdateRect(screen, left_margin_x, top_menu_y, menu_w, menu_h);
-                    current = TOGGLE;
-                    break;
-                }
-                if (current == ZAP && (keys[SDLK_DOWN] || keys[SDLK_TAB])) {
+                else if (current == ZAP && down) {
                     sound->play_menu_select();
                     blit_menu_button(zap, 3);
                     blit_menu_button(r_help, 4);
                     SDL_UpdateRect(screen, left_margin_x, top_menu_y, menu_w, menu_h);
                     current = HELP;
+                    down = false;
                     break;
                 }
-                if (current == HELP && keys[SDLK_UP]) {
-                    sound->play_menu_select();
-                    blit_menu_button(r_zap, 3);
-                    blit_menu_button(help, 4);
-                    SDL_UpdateRect(screen, left_margin_x, top_menu_y, menu_w, menu_h);
-                    current = ZAP;
-                    break;
-                }
-                if (current == HELP && (keys[SDLK_DOWN] || keys[SDLK_TAB])) {
+                else if (current == HELP && down) {
                     sound->play_menu_select();
                     blit_menu_button(help, 4);
                     blit_menu_button(r_about, 5);
                     SDL_UpdateRect(screen, left_margin_x, top_menu_y, menu_w, menu_h);
                     current = ABOUT;
+                    down = false;
                     break;
                 }
-                if (current == ABOUT && keys[SDLK_UP]) {
-                    sound->play_menu_select();
-                    blit_menu_button(r_help, 4);
-                    blit_menu_button(about, 5);
-                    SDL_UpdateRect(screen, left_margin_x, top_menu_y, menu_w, menu_h);
-                    current = HELP;
-                    break;
-                }
-                if (current == ABOUT && keys[SDLK_TAB]) {
+                else if (current == ABOUT && down) {
                     sound->play_menu_select();
                     blit_menu_button(r_play, 0);
                     blit_menu_button(about, 5);
                     SDL_UpdateRect(screen, left_margin_x, top_menu_y, menu_w, menu_h);
                     current = PLAY;
+                    down = false;
                     break;
                 }
                 if (keys[SDLK_ESCAPE]) {
                     return false;
                 }
-                if (current == QUIT && (keys[SDLK_RETURN] || keys[SDLK_SPACE])) {
+                if (current == QUIT && keys[231]) {
                     sound->play_exit();
                     return false;
                 }
-                if (current == PLAY && (keys[SDLK_RETURN] || keys[SDLK_SPACE])) {
+                if (current == PLAY && keys[231]) {
                     sound->halt_all_sounds();
                     return true;
                 }
-                if (current == ZAP && (keys[SDLK_RETURN] || keys[SDLK_SPACE])) {
+                if (current == ZAP && keys[231]) {
                     sound->play_zap_scores();
                     high_scores.clear();
                     write_scores();
                     goto main_menu;
                 }
-                if (current == TOGGLE && (keys[SDLK_RETURN] || keys[SDLK_SPACE])) {
+                if (current == TOGGLE && keys[231]) {
                     toggle_fullscreen();
                     SDL_Delay(500);
                     current = PLAY;
                     goto main_menu;
                 }
-                if (current == HELP && (keys[SDLK_RETURN] || keys[SDLK_SPACE])) {
+                else if (current == HELP && keys[231]) {
                     help_screen();
                     sound->play_help_screen();
                     while (SDL_WaitEvent(&event)) {
                         keys = SDL_GetKeyState(NULL);
-                        if (keys[SDLK_RETURN] || keys[SDLK_SPACE] || keys[SDLK_ESCAPE]) {
+                        if (keys[231] || keys[SDLK_ESCAPE]) {
                             sound->halt_all_sounds();
                             goto main_menu;
                         }
                     }
                 }
-                if (current == ABOUT && (keys[SDLK_RETURN] || keys[SDLK_SPACE])) {
+                else if (current == ABOUT && keys[231]) {
                     about_screen();
                     sound->play_about_screen();
                     while (SDL_WaitEvent(&event)) {
                         keys = SDL_GetKeyState(NULL);
-                        if (keys[SDLK_RETURN] || keys[SDLK_SPACE] || keys[SDLK_ESCAPE]) {
+                        if (keys[231] || keys[SDLK_ESCAPE]) {
                             sound->halt_all_sounds();
                             goto main_menu;
                         }

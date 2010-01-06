@@ -1,6 +1,6 @@
 {
        "title": "Classic Invaders",
-       "id": "org.webosinternals.classicinvaders",
+       "id": "org.webosinternals.cinvaders",
        "version": "1.0",
        "vendor": "WebOS Internals",
        "vendor_email": "support@webos-internals.org",

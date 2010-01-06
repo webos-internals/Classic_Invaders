@@ -1,0 +1,3 @@
+#Wed Jan 06 11:24:21 EST 2010
+eclipse.preferences.version=1
+environment/project/0.541495412=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\n<environment append\="true" appendContributed\="true">\n<variable delimiter\=";" name\="CXX" operation\="append" value\="armv7l-softfloat-linux-gnueabi-g++"/>\n</environment>\n

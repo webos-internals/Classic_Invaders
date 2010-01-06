@@ -1,4 +1,4 @@
-CC=g++
+CC=${CXX}
 CFLAGS=-W -Wall -O3 `sdl-config --cflags` -I/usr/local/include
 LIBS=`sdl-config --libs` -lSDL_image -lSDL_ttf -lSDL_mixer
 
@@ -30,9 +30,12 @@ bonus_ship.o: bonus_ship.cpp bonus_ship.h screen.h game_entity.h game.h
 sound.o: sound.cpp sound.h
 	$(CC) $(CFLAGS) -c sound.cpp
 
-.PHONY: clean
+.PHONY: clean fresh all
 clean:
 	for i in *.o; do rm -f $$i; done
 	if [ -e cinvaders ]; then rm -f cinvaders; fi
 	if [ -e cinvaders.exe ]; then rm -f cinvaders.exe; fi
+	
+all: cinvaders
 
+fresh: clean all

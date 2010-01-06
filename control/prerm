@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PID="org.webosinternals.classicinvaders"
+PID="org.webosinternals.cinvaders"
 
 # Stop the service
 /sbin/stop ${PID}
